@@ -91,7 +91,7 @@ function renderxAxes(newXScale, xAxis) {
 }
 
 // function used for updating yAxis var upon click on axis label
-function renderyAxes(newYScale, YAxis) {
+function renderyAxes(newYScale, yAxis) {
   var bottomAxis = d3.axisBottom(newYScale);
 
   yAxis.transition()
