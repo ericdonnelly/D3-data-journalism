@@ -112,3 +112,71 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYA
 
   return circlesGroup;
 }
+
+
+// function used for updating circles group with new tooltip
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
+
+  //select x label
+  //poverty percentage
+  if (chosenXAxis === 'poverty') {
+      var xLabel = "Poverty:";
+  }
+  //household income in dollars
+  else if (chosenXAxis === 'income') {
+      var xLabel = "Median Income:";
+  }
+  //age (number)
+  else {
+      var xLabel = "Age:";
+  }
+
+  //select y label
+  //percentage lacking healthcare
+  if (chosenYAxis === 'healthcare') {
+      var yLabel = "No Healthcare:"
+  }
+  //percentage obese
+  else if (chosenYAxis === 'obesity') {
+      var yLabel = "Obesity:"
+  }
+  //smoking percentage
+  else {
+      var yLabel = "Smokers:"
+  }
+
+  //create tooltip
+  var toolTip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([-8, 0])
+      .html(function(d) {
+          return (`${d.state}<br>${xLabel} ${styleX(d[chosenXAxis], chosenXAxis)}<br>${yLabel} ${d[chosenYAxis]}%`);
+      });
+
+  circlesGroup.call(toolTip);
+
+  //add events
+  circlesGroup.on("mouseover", toolTip.show)
+  .on("mouseout", toolTip.hide);
+
+  return circlesGroup;
+}
+
+
+// Retrieve data from the CSV file and execute everything below
+d3.csv("./assets/data/data.csv").then(function(censusData, err) {
+  if (err) throw err;
+
+  // parse data
+  censusData.forEach(function(data) {
+    data.obesity = +data.obesity;
+    data.income = +data.income;
+    data.smokes = +data.smokes;
+    data.age = +data.age;
+    data.healthcare = +data.healthcare;
+    data.poverty = +data.poverty;
+  });
+
+  // xLinearScale function above csv import
+  var xLinearScale = xScale(censusData, chosenXAxis);
+  var yLinearScale = yScale(censusData, chosenYAxis);
