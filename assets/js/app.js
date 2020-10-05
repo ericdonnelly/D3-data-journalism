@@ -164,19 +164,19 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("./assets/data/data.csv").then(function(censusData, err) {
-  if (err) throw err;
+// d3.csv("./assets/data/data.csv").then(function(censusData, err) {
+//   if (err) throw err;
 
-  // parse data
-  censusData.forEach(function(data) {
-    data.obesity = +data.obesity;
-    data.income = +data.income;
-    data.smokes = +data.smokes;
-    data.age = +data.age;
-    data.healthcare = +data.healthcare;
-    data.poverty = +data.poverty;
-  });
+//   // parse data
+//   censusData.forEach(function(data) {
+//     data.obesity = +data.obesity;
+//     data.income = +data.income;
+//     data.smokes = +data.smokes;
+//     data.age = +data.age;
+//     data.healthcare = +data.healthcare;
+//     data.poverty = +data.poverty;
+//   });
 
-  // xLinearScale function above csv import
-  var xLinearScale = xScale(censusData, chosenXAxis);
-  var yLinearScale = yScale(censusData, chosenYAxis);
+//   // xLinearScale function above csv import
+//   var xLinearScale = xScale(censusData, chosenXAxis);
+//   var yLinearScale = yScale(censusData, chosenYAxis);
