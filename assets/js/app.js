@@ -183,13 +183,13 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
     // .classed("stateCircle", true)
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 20)
-    .attr("fill", "blue")
+    .attr("r", 14)
+    .attr("fill", "lightblue")
     .attr("opacity", ".5");
 
   // Create group for three x-axis labels
   var xlabelsGroup = chartGroup.append("g")
-  .attr('transform', `translate(${width / 2}, ${height + 10 + margin.top})`);
+  .attr('transform', `translate(${width / 2}, ${height + 20 + margin.top})`);
 
   var povertyLabel = xlabelsGroup.append("text")
     .classed("aText", true)
@@ -210,7 +210,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
     var incomeLabel = xlabelsGroup.append("text")
     .classed("aText", true)
     .attr("x", 0)
-    .attr("y", 40)
+    .attr("y", 60)
     .attr("value", "income") // value to grab for event listener
     .classed("inactive", true)
     .text("Median Household Income");
