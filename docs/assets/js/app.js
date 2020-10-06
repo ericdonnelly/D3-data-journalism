@@ -206,7 +206,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
     // .classed("stateCircle", true)
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 14)
+    .attr("r", 15)
     .attr("fill", "#87D2B8")
     .attr("opacity", ".75");
 
