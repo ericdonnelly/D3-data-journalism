@@ -1,5 +1,7 @@
 # D3 Homework - Data Journalism and D3
 
+This data visualization can be viewed [here](https://ericdonnelly.github.io/D3-data-journalism/)
+
 ![Newsroom](https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif)
 
 ## Background
