@@ -163,7 +163,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 }
 
 
-Retrieve data from the CSV file and execute everything below
+// Retrieve data from the CSV file and execute everything below
 d3.csv("./assets/data/data.csv").then(function(censusData, err) {
   if (err) throw err;
 
@@ -237,6 +237,32 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
     .attr("value", "income") // value to grab for event listener
     .classed("inactive", true)
     .text("Median Household Income");
+
+
+  // Create group for three y-axis labels
+  var ylabelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+  var healthcareLabel = ylabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "healthcare") // value to grab for event listener
+    .classed("active", true)
+    .text("(%) Lack Healthcare");
+
+  var smokeLabel = ylabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "smokes") // value to grab for event listener
+    .classed("inactive", true)
+    .text("(%) Smoke");
+
+    var obesityLabel = ylabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("value", "obesity") // value to grab for event listener
+    .classed("inactive", true)
+    .text("(%) Obese");
 
 //   // updateToolTip function above csv import
 //   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
