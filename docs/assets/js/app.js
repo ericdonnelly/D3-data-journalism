@@ -315,7 +315,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
                 //update text 
                 textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
-                //change classes to change bold text
+                //change classes
                 if (chosenXAxis === "poverty") {
                     povertyLabel.classed("active", true).classed("inactive", false);
                     ageLabel.classed("active", false).classed("inactive", true);
@@ -361,7 +361,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
             //update text 
             textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
-            //change classes to change bold text
+            //change classes
             if (chosenYAxis === "obesity") {
                 obesityLabel.classed("active", true).classed("inactive", false);
                 smokeLabel.classed("active", false).classed("inactive", true);
