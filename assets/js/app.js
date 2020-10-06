@@ -163,20 +163,128 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 }
 
 
-// Retrieve data from the CSV file and execute everything below
-// d3.csv("./assets/data/data.csv").then(function(censusData, err) {
-//   if (err) throw err;
+Retrieve data from the CSV file and execute everything below
+d3.csv("./assets/data/data.csv").then(function(censusData, err) {
+  if (err) throw err;
 
-//   // parse data
-//   censusData.forEach(function(data) {
-//     data.obesity = +data.obesity;
-//     data.income = +data.income;
-//     data.smokes = +data.smokes;
-//     data.age = +data.age;
-//     data.healthcare = +data.healthcare;
-//     data.poverty = +data.poverty;
-//   });
+  // parse data
+  censusData.forEach(function(data) {
+    data.obesity = +data.obesity;
+    data.income = +data.income;
+    data.smokes = +data.smokes;
+    data.age = +data.age;
+    data.healthcare = +data.healthcare;
+    data.poverty = +data.poverty;
+  });
 
-//   // xLinearScale function above csv import
-//   var xLinearScale = xScale(censusData, chosenXAxis);
-//   var yLinearScale = yScale(censusData, chosenYAxis);
+  // xLinearScale function above csv import
+  var xLinearScale = xScale(censusData, chosenXAxis);
+  var yLinearScale = yScale(censusData, chosenYAxis);
+
+  // // Create y scale function
+  // var yLinearScale = d3.scaleLinear()
+  //   .domain([0, d3.max(hairData, d => d.num_hits)])
+  //   .range([height, 0]);
+
+  // Create initial axis functions
+  var bottomAxis = d3.axisBottom(xLinearScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
+
+  // append x axis
+  var xAxis = chartGroup.append("g")
+    .classed("x-axis", true)
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+  //append y axis
+  var yAxis = chartGroup.append("g")
+      .classed("y-axis", true)
+      .attr("transform", `translate(0, ${height})`
+      .call(leftAxis);
+
+  // append initial circles
+  var circlesGroup = chartGroup.selectAll("circle")
+    .data(hairData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    .attr("cy", d => yLinearScale(d[chosenYAxis]))
+    .attr("r", 20)
+    .attr("fill", "blue")
+    .attr("opacity", ".5");
+
+  // Create group for three x-axis labels
+  var xlabelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+  var povertyLabel = xlabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "poverty") // value to grab for event listener
+    .classed("active", true)
+    .text("(%) In Poverty");
+
+  var ageLabel = xlabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "age") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Median Age");
+
+    var incomeLabel = xlabelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "income") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Median Household Income");
+
+//   // updateToolTip function above csv import
+//   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
+//   // x axis labels event listener
+//   labelsGroup.selectAll("text")
+//     .on("click", function() {
+//       // get value of selection
+//       var value = d3.select(this).attr("value");
+//       if (value !== chosenXAxis) {
+
+//         // replaces chosenXAxis with value
+//         chosenXAxis = value;
+
+//         // console.log(chosenXAxis)
+
+//         // functions here found above csv import
+//         // updates x scale for new data
+//         xLinearScale = xScale(hairData, chosenXAxis);
+
+//         // updates x axis with transition
+//         xAxis = renderAxes(xLinearScale, xAxis);
+
+//         // updates circles with new x values
+//         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+
+//         // updates tooltips with new info
+//         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
+//         // changes classes to change bold text
+//         if (chosenXAxis === "num_albums") {
+//           albumsLabel
+//             .classed("active", true)
+//             .classed("inactive", false);
+//           hairLengthLabel
+//             .classed("active", false)
+//             .classed("inactive", true);
+//         }
+//         else {
+//           albumsLabel
+//             .classed("active", false)
+//             .classed("inactive", true);
+//           hairLengthLabel
+//             .classed("active", true)
+//             .classed("inactive", false);
+//         }
+//       }
+//     });
+// }).catch(function(error) {
+//   console.log(error);
+// });
