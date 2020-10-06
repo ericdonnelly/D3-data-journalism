@@ -70,11 +70,11 @@ function renderxAxes(newXScale, xAxis) {
 
 // function used for updating yAxis var upon click on axis label
 function renderyAxes(newYScale, yAxis) {
-  var bottomAxis = d3.axisBottom(newYScale);
+  var leftAxis = d3.axisBottom(newYScale);
 
   yAxis.transition()
     .duration(1000)
-    .call(bottomAxis);
+    .call(leftAxis);
 
   return yAxis;
 }
@@ -86,7 +86,7 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYA
   circlesGroup.transition()
     .duration(1000)
     .attr("cx", d => newXScale(d[chosenXAxis]))
-    .attr("cy", d => newXScale(d[chosenYAxis]));
+    .attr("cy", d => newYScale(d[chosenYAxis]));
 
   return circlesGroup;
 }
@@ -128,7 +128,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
       .attr("class", "d3-tip")
       .offset([-8, 0])
       .html(function(d) {
-          return (`${d.state}<br>${xLabel} ${styleX(d[chosenXAxis], chosenXAxis)}<br>${yLabel} ${d[chosenYAxis]}%`);
+          return (`${d.state}<br>${xLabel} ${(d[chosenXAxis], chosenXAxis)}<br>${yLabel} ${d[chosenYAxis]}%`);
       });
 
   circlesGroup.call(toolTip);
@@ -231,7 +231,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
   .attr("value", "healthcare")
   .text("Lacks Healthcare (%)");
 
-  var smokeLabel = yLabelsGroup.append("text")
+  var smokeLabel = ylabelsGroup.append("text")
   .classed("aText", true)
   .classed("inactive", true)
   .attr("x", 0)
@@ -241,7 +241,7 @@ d3.csv("./assets/data/data.csv").then(function(censusData, err) {
   .attr("value", "smokes")
   .text("Smokes (%)");
 
-  var obesityLabel = yLabelsGroup.append("text")
+  var obesityLabel = ylabelsGroup.append("text")
   .classed("aText", true)
   .classed("inactive", true)
   .attr("x", 0)
